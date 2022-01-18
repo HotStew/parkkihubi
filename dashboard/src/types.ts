@@ -19,6 +19,8 @@ export interface RootState {
 
     parkings: ParkingsMap;
 
+    filters: ExportFilters;
+
     regionUsageHistory: RegionUsageHistory;
     validParkingsHistory: ValidParkingsHistory;
 }
@@ -84,4 +86,19 @@ export interface RegionUsageInfo {
 
 export interface ValidParkingsHistory {
     [time: number]: ParkingId[];
+}
+
+export interface Operator {
+    id: string;
+    name: string;
+}
+
+export interface PaymentZone {
+    code: string;
+    name: string;
+}
+
+export interface ExportFilters {
+    operators: Operator[];
+    paymentZones: PaymentZone[];
 }

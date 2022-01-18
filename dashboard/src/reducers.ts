@@ -4,8 +4,9 @@ import { combineReducers } from 'redux';
 import { Action } from './actions';
 import { centerCoordinates } from './config';
 import * as conv from './converters';
+import { ExportFilters as apiExportFilters} from './api/types';
 import {
-    AuthenticationState, ParkingRegionMapState, ParkingsMap, RegionsMap,
+    AuthenticationState, ExportFilters, ParkingRegionMapState, ParkingsMap, RegionsMap,
     RegionUsageHistory, ValidParkingsHistory,
     ViewState } from './types';
 
@@ -151,6 +152,17 @@ function parkings(state: ParkingsMap = {}, action: Action): ParkingsMap {
     return state;
 }
 
+function filters(state: apiExportFilters = {}, action: Action): apiExportFilters {
+    if (action.type === 'RECEIVE_EXPORT_FILTERS') {
+        const newExportFilters = {
+            operators: action.data.operators,
+            paymentZones: action.data.payment_zones
+        }
+        return { ...state, ...newExportFilters } as ExportFilters;
+    }
+    return state;
+}
+
 function regionUsageHistory(
     state: RegionUsageHistory = {},
     action: Action
@@ -202,6 +214,7 @@ const rootReducer  = () => combineReducers({
         parkings,
         regionUsageHistory,
         validParkingsHistory,
+        filters,
     });
 
 export default rootReducer;

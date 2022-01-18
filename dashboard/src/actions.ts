@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-import { ParkingList, RegionList, RegionStatsList } from './api/types';
+import { ExportFilters, ParkingList, RegionList, RegionStatsList } from './api/types';
 import { MapViewport } from './components/types';
 
 interface CheckExistingLoginAction {
@@ -139,6 +139,28 @@ export function receiveValidParkings(
     return {type: 'RECEIVE_VALID_PARKINGS', data, time};
 }
 
+interface ReceiveExportFiltersAction {
+    type: 'RECEIVE_EXPORT_FILTERS';
+    data: ExportFilters;
+}
+
+export function receiveExportFilters(
+    data: ExportFilters
+): ReceiveExportFiltersAction {
+    return {type: 'RECEIVE_EXPORT_FILTERS', data}
+}
+
+interface ReceiveCsvAction {
+    type: 'RECEIVE_CSV';
+    data: string;
+}
+
+export function receiveCSV(
+    data: string
+): ReceiveCsvAction {
+    return {type: 'RECEIVE_CSV', data}
+}
+
 export type Action =
     CheckExistingLoginAction |
     ResolveExistingLoginCheckAction |
@@ -155,4 +177,6 @@ export type Action =
     SetSelectedRegionAction |
     ReceiveRegionStatsAction |
     ReceiveRegionInfoAction |
-    ReceiveValidParkingsAction;
+    ReceiveValidParkingsAction |
+    ReceiveExportFiltersAction |
+    ReceiveCsvAction;

@@ -5,6 +5,7 @@ import * as actions from './actions';
 import { Action } from './actions';
 import api from './api';
 import { MapViewport } from './components/types';
+import { ExportFilters } from './api/types';
 import { RootState } from './types';
 
 const updateInterval = 5 * 60 * 1000;  // 5 minutes in ms
@@ -101,6 +102,7 @@ function fetchMissingData(time: moment.Moment) {
     if (!(timestamp in state.validParkingsHistory)) {
       dispatch(fetchValidParkings(time));
     }
+    dispatch(fetchExportFilters());
   };
 }
 
@@ -161,6 +163,31 @@ export function fetchValidParkings(time: moment.Moment) {
         },
         (error) => {
           alert('Valid parkings fetch failed: ' + error);
+        });
+  };
+}
+
+export function downloadCSV(filters: ExportFilters) {
+  return (dispatch: Dispatch<Action>) => {
+    api.downloadCSV(
+        filters,
+        (response) => {
+          dispatch(actions.receiveCSV(response.data));
+        },
+        (error) => {
+          alert('CSV download failed: ' + error);
+        });
+  };
+}
+
+export function fetchExportFilters() {
+  return (dispatch: Dispatch<Action>) => {
+    api.fetchExportFilters(
+        (response) => {
+          dispatch(actions.receiveExportFilters(response.data));
+        },
+        (error) => {
+          alert('Export filters fetch failed: ' + error);
         });
   };
 }

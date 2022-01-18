@@ -90,3 +90,21 @@ export interface ParkingProperties {
     created_at: string;
     modified_at: string;
 }
+
+export interface Operator {
+    id: string;
+    name?: string;
+}
+
+export interface PaymentZone {
+    code: string;
+    name?: string;
+}
+
+export interface ExportFilters{
+    operators?: Operator[];
+    payment_zones?: PaymentZone[];
+    parking_check?: boolean;
+    time_start?: string;
+    time_end?: string;
+}

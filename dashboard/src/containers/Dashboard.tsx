@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { Button } from 'reactstrap';
 
+import Export from './Export';
 import RegionSelector from './RegionSelector';
 import * as dispatchers from '../dispatchers';
 import { RootState } from '../types';
@@ -82,6 +83,7 @@ class Dashboard extends Component<Props> {
             <div className="d-flex">
                 <div className="table-card">
                     <TimeSelect />
+                    <Export />
                     <div className="margin-bottom-8" />
                     <LastParkingsTable />
                 </div>
